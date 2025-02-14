@@ -9,11 +9,11 @@ const app = express();
 (async() => {
     try {
         await sequelize.authenticate();
-        console.log('Database connection established successfully.');
+        console.log("✅ Database connection established successfully.");
         await sequelize.sync();
-        console.log('Database synchronized.');
+        console.log("✅ Database synchronized.");
     } catch (error) {
-        console.error('Unable to connect to the database:', error);
+        console.error("❌ Unable to connect to the database:", error);
         process.exit(1);
     }
 })();
@@ -21,23 +21,17 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).json({ error: 'Something went wrong!' });
-});
-
-// Setup Swagger documentation
-setupSwagger(app);
-
 // Routes
 app.use("/gadgets", gadgetsRoutes);
 
-// Health check endpoint
+// Swagger documentation setup
+setupSwagger(app);
+
+// Health check route
 app.get("/", (req, res) => {
     res.send("IMF Gadget API is Live! 🚀");
 });
 
-// Start server
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
