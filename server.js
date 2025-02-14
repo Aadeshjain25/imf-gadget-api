@@ -1,14 +1,13 @@
 const express = require("express");
-const setupSwagger = require("./config/swagger"); // Import Swagger setup
-const gadgetsRoutes = require("./routes/gadgets"); // ✅ Import gadgets route
+const setupSwagger = require("./config/swagger");
+const gadgetsRoutes = require("./routes/gadgets");
 
 const app = express();
-app.use(express.json()); // Middleware for JSON parsing
+app.use(express.json());
 
-setupSwagger(app); // Set up Swagger UI
-app.use("/gadgets", gadgetsRoutes); // ✅ Use the gadgets route
+setupSwagger(app);
+app.use("/gadgets", gadgetsRoutes);
 
-// ✅ Home Route (Check if API is running)
 app.get("/", (req, res) => {
     res.send("IMF Gadget API is Live! 🚀");
 });
