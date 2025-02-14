@@ -35,3 +35,10 @@ app.get("/", (req, res) => {
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// ✅ Add this at the bottom of `server.js`
+app.use((err, req, res, next) => {
+    console.error("❌ API Error:", err); // Logs the actual error in Render logs
+    res.status(err.status || 500).json({
+        error: err.message || "Internal Server Error",
+    });
+});
