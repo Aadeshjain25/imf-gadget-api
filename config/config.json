@@ -4,20 +4,24 @@
         "password": "747060",
         "database": "imf_gadgets",
         "host": "127.0.0.1",
-        "dialect": "imf_gadgets"
+        "dialect": "postgres"
     },
     "test": {
-        "username": "imf_gadgets",
-        "password": "747060",
-        "database": "imf_gadgets_test",
+        "username": "root",
+        "password": null,
+        "database": "database_test",
         "host": "127.0.0.1",
-        "dialect": "imf_gadgets"
+        "dialect": "postgres"
     },
     "production": {
-        "username": "imf_gadgets",
-        "password": "747060",
-        "database": "imf_gadgets_prod",
-        "host": "127.0.0.1",
-        "dialect": "imf_gadgets"
+        "use_env_variable": "DATABASE_URL",
+        "dialect": "postgres",
+        "ssl": true,
+        "dialectOptions": {
+            "ssl": {
+                "require": true,
+                "rejectUnauthorized": false
+            }
+        }
     }
 }
