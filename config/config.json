@@ -1,23 +1,23 @@
 {
     "development": {
-        "username": "postgres",
+        "username": "imf_gadgets",
         "password": "747060",
         "database": "imf_gadgets",
         "host": "127.0.0.1",
-        "dialect": "postgres"
+        "dialect": "imf_gadgets"
     },
     "test": {
-        "username": "postgres",
+        "username": "imf_gadgets",
         "password": "747060",
         "database": "imf_gadgets_test",
         "host": "127.0.0.1",
-        "dialect": "postgres"
+        "dialect": "imf_gadgets"
     },
     "production": {
-        "username": "postgres",
+        "username": "imf_gadgets",
         "password": "747060",
         "database": "imf_gadgets_prod",
         "host": "127.0.0.1",
-        "dialect": "postgres"
+        "dialect": "imf_gadgets"
     }
 }
