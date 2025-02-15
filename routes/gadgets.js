@@ -2,25 +2,23 @@ const express = require("express");
 const router = express.Router();
 const Gadget = require("../models/gadget");
 
-// ✅ Get all gadgets
-router.get("/", async(req, res, next) => {
+router.patch("/:id", async(req, res) => {
     try {
-        const gadgets = await Gadget.findAll();
-        res.json(gadgets);
-    } catch (error) {
-        next(error); // ✅ Passes error to Express middleware
-    }
-});
+        const { id } = req.params;
+        const { status } = req.body;
 
-// ✅ Create a new gadget
-router.post("/", async(req, res, next) => {
-    try {
-        const { name } = req.body;
-        if (!name) throw new Error("Gadget name is required!");
-        const gadget = await Gadget.create({ name });
-        res.status(201).json(gadget);
+        const gadget = await Gadget.findByPk(id);
+        if (!gadget) {
+            return res.status(404).json({ error: "Gadget not found!" });
+        }
+
+        gadget.status = status;
+        await gadget.save();
+
+        res.json(gadget);
     } catch (error) {
-        next(error);
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
     }
 });
 
