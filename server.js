@@ -12,11 +12,11 @@ app.use(cors());
 (async() => {
     try {
         await sequelize.authenticate();
-        console.log("✅ Database connection established successfully.");
+        console.log(" Database connection established successfully.");
         await sequelize.sync();
-        console.log("✅ Database synchronized.");
+        console.log(" Database synchronized.");
     } catch (error) {
-        console.error("❌ Unable to connect to the database:", error);
+        console.error(" Unable to connect to the database:", error);
         process.exit(1);
     }
 })();
@@ -32,7 +32,7 @@ setupSwagger(app);
 
 
 app.get("/", (req, res) => {
-    res.send("IMF Gadget API is Live! 🚀");
+    res.send("IMF Gadget API is Live! ");
 });
 
 
@@ -40,7 +40,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 app.use((err, req, res, next) => {
-    console.error("❌ API Error:", err);
+    console.error(" API Error:", err);
     res.status(err.status || 500).json({
         error: err.message || "Internal Server Error",
     });
