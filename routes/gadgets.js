@@ -89,9 +89,14 @@ router.delete("/:id", async(req, res) => {
 });
 
 // ✅ SELF-DESTRUCT: Deletes all gadgets
-router.delete("/self-destruct/all", async(req, res) => {
-            try {
-                await Gadget.destroy({ where: {} }); // Deletes everything in the table
-                res.json({ message: "All gadgets have been destroyed! 💥" });
-            } catch (error) {
-                con
+router.delete("/self-destruct", async(req, res) => {
+    try {
+        await Gadget.destroy({ where: {} });
+        res.json({ message: "🔥 All gadgets have been self-destructed! 🔥" });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+module.exports = router;
