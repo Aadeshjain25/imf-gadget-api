@@ -1,41 +1,33 @@
 const { Sequelize } = require("sequelize");
 require("dotenv").config();
 
-// Check if DATABASE_URL is set
+// ✅ Ensure DATABASE_URL is set
 if (!process.env.DATABASE_URL) {
     throw new Error("❌ DATABASE_URL is missing! Set it in Render's Environment Variables.");
 }
 
-// Initialize Sequelize
+// ✅ Initialize Sequelize with SSL
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: "postgres",
     dialectOptions: {
         ssl: {
-            require: true, // ✅ Ensure SSL is required for Render DB
-            rejectUnauthorized: false // ✅ Fix Render SSL issues
+            require: true, // ✅ Ensure SSL is required
+            rejectUnauthorized: false // ✅ Fix SSL issues on Render
         }
     },
-    logging: false // Set to true if you want SQL logs
+    logging: false
 });
 
-// ✅ Retry Connection on Failure
-const connectWithRetry = async() => {
-    let attempts = 5;
-    while (attempts > 0) {
-        try {
-            await sequelize.authenticate();
-            console.log("✅ Database connected successfully!");
-            return;
-        } catch (error) {
-            console.error(`❌ Database connection failed! Retrying... (${attempts} attempts left)`);
-            attempts--;
-            await new Promise(res => setTimeout(res, 5000)); // Wait 5 seconds before retrying
-        }
+// ✅ Test Database Connection
+(async() => {
+    try {
+        await sequelize.authenticate();
+        console.log("✅ Database connected successfully!");
+    } catch (error) {
+        console.error("❌ Database connection failed! Please check Render logs.");
+        console.error(error);
+        process.exit(1);
     }
-    console.error("❌ Database connection failed after multiple attempts.");
-    process.exit(1);
-};
-
-connectWithRetry();
+})();
 
 module.exports = sequelize;
