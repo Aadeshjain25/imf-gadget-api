@@ -1,5 +1,8 @@
 const express = require("express");
 const setupSwagger = require("./config/swagger");
+const cors = require("cors");
+app.use(cors()); // ✅ Allow requests from Swagger and Postman
+
 const gadgetsRoutes = require("./routes/gadgets");
 const sequelize = require("./config/database");
 
