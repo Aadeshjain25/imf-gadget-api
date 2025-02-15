@@ -87,8 +87,7 @@ router.delete("/:id", async(req, res) => {
 
 router.delete("/self-destruct", async(req, res) => {
     try {
-        await Gadget.destroy({ where: {}, truncate: true });
-
+        await Gadget.destroy({ where: {} });
         res.json({ message: " All gadgets have been self-destructed!" });
     } catch (error) {
         console.error(" Self-Destruct Error:", error);
