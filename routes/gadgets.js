@@ -2,6 +2,16 @@ const express = require("express");
 const router = express.Router();
 const Gadget = require("../models/gadget");
 
+router.get("/", async(req, res) => {
+    try {
+        const gadgets = await Gadget.findAll();
+        res.json(gadgets);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
 router.patch("/:id", async(req, res) => {
     try {
         const { id } = req.params;
@@ -21,14 +31,6 @@ router.patch("/:id", async(req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-router.get("/", async(req, res) => {
-    try {
-        const gadgets = await Gadget.findAll();
-        res.json(gadgets);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
+
 
 module.exports = router;
